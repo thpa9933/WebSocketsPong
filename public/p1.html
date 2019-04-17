@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
+
+    <script>
+
+    var score = 0;
+    function setup() {
+        createCanvas(windowWidth, windowHeight);
+        socket = io.connect('/');
+
+        var button = createButton("reset");
+        button.mousePressed(resetSketch);
+
+        socket.on('yourScore', function(data) {
+            score = data.LS;
+            console.log(data.LS);
+        });
+        //console.log("Leftscore: " + score);
+    }
+
+    function draw() {
+        background(0);
+        sendmouse(mouseX, mouseY);
+
+        fill(255);
+        textSize(70);
+        textAlign(CENTER);
+        text('Slide to move your paddle!', 500, 500);
+        text('Your score is', 500, 600);
+        textSize(200)
+        text(score, 500, 900);
+    }
+
+    function resetSketch() {
+        socket.emit('resetSketch', true)
+    }
+
+    function sendmouse(xpos, ypos) {
+        var data = {
+            x: xpos,
+            y: ypos
+        };
+        socket.emit('mouse1', data);
+    }
+
+    </script>
+  </head>
+
+  <body>
+  </body>
+  <style>
+      body{
+          overflow: hidden;
+          margin: 0px;
+          overscroll-behavior-y: contain;
+      }
+  </style>
+</html>

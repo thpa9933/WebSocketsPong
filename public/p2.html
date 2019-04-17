@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
+
+    <script>
+
+    function setup() {
+    createCanvas(windowWidth, windowHeight);
+    socket = io.connect('/');
+    }
+
+    function draw() {
+        background(0);
+        sendmouse(mouseX, mouseY);
+
+    }
+
+    function sendmouse(xpos, ypos) {
+        var data = {
+            x: xpos,
+            y: ypos
+            //player: 2
+        };
+        socket.emit('mouse2', data);
+    }
+    
+
+    </script>
+
+  </head>
+
+  <body>
+  </body>
+  <style>
+    html{
+        overscroll-behavior-y: contain;
+    }
+    body{
+        overflow: hidden;
+        margin: 0px;
+        overscroll-behavior-y: contain;
+    }
+  </style>
+</html>
