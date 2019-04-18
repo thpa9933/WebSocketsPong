@@ -2,6 +2,7 @@
 var socket;
 let leftscore = 0;
 let rightscore = 0;
+var winner = "";
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -21,7 +22,7 @@ function setup() {
         left.move(data.x);
     });
     socket.on('mouse2', function(data){
-        right.move(data.x);
+        right.move(-data.x);
     });
 
     socket.on('resetSketch', function(data) {
@@ -52,6 +53,20 @@ function draw() {
     text(leftscore, 32, 40);
     text(rightscore, width-64, 40);
 
+    // Display winner
+    if(leftscore == 3) {
+        winner = "Player 1 Won!";
+        puck.endGame();
+    } else if(rightscore == 3) {
+        winner = "Player 2 Won!"
+        puck.endGame();
+    }
+    fill(255);
+    textSize(60);
+    textAlign(CENTER);
+    text(winner, (windowWidth/2), (windowHeight/2));
+
+    // Show scores on client screen
     data = {
         LS: leftscore,
         RS: rightscore
@@ -66,7 +81,6 @@ function keyReleased() {
 }
 
 function keyPressed() {
-    //console.log(key);
     if (key == 'A') {
         left.move(-10);
     } else if (key == 'Z') {
@@ -80,11 +94,3 @@ function keyPressed() {
     }
     socket.emit('keyData',key);
 }
-
-
-// window.addEventListener("deviceorientation", handleOrientation, true);
-// function handleOrientation(event){
-//     console.log('gyro data on client is: ' + event.alpha);
-//     var alpha = event.alpha;
-//     socket.emit('gyroData', alpha);
-// }

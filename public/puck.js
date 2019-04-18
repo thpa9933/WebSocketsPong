@@ -85,4 +85,13 @@ class Puck {
         fill(255);
         ellipse(this.x, this.y, this.r*2);
     }
+
+    endGame() {
+        this.x = 0;
+        this.y = 0;
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.r = 0;
+        this.speed = 0;
+    }
 }

@@ -22,7 +22,14 @@
             score = data.LS;
             console.log(data.LS);
         });
-        //console.log("Leftscore: " + score);
+        
+        // window.addEventListener("deviceorientation", handleOrientation, true);
+        // function handleOrientation(event){
+        //     console.log('gyro data on client is: ' + event.alpha);
+        //     var alpha = event.alpha;
+        //     socket.emit('gyroData', alpha);
+        // }
+
     }
 
     function draw() {
@@ -32,7 +39,7 @@
         fill(255);
         textSize(70);
         textAlign(CENTER);
-        text('Slide to move your paddle!', 500, 500);
+        text('Slide horizontally to move!', 500, 500);
         text('Your score is:', 500, 600);
         textSize(200);
         text(score, 500, 900);
@@ -68,6 +75,7 @@
         }
     }
 
+    // Sends finger position to server
     function sendmouse(xpos, ypos) {
         var data = {
             x: xpos,
