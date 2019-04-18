@@ -18,10 +18,10 @@ function setup() {
     });
 
     socket.on('mouse1', function(data){
-        left.move(data.y);
+        left.move(data.x);
     });
     socket.on('mouse2', function(data){
-        right.move(data.y);
+        right.move(data.x);
     });
 
     socket.on('resetSketch', function(data) {

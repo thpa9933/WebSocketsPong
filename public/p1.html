@@ -13,12 +13,10 @@
     <script>
 
     var score = 0;
+    var isOverRect;
     function setup() {
         createCanvas(windowWidth, windowHeight);
         socket = io.connect('/');
-
-        var button = createButton("reset");
-        button.mousePressed(resetSketch);
 
         socket.on('yourScore', function(data) {
             score = data.LS;
@@ -35,13 +33,39 @@
         textSize(70);
         textAlign(CENTER);
         text('Slide to move your paddle!', 500, 500);
-        text('Your score is', 500, 600);
-        textSize(200)
+        text('Your score is:', 500, 600);
+        textSize(200);
         text(score, 500, 900);
+
+        // Reset Button
+        if (mouseX >= 300 && mouseX <= 300+400 && mouseY >= 1000 && mouseY <= 1000+200) {
+            isOverRect = true;
+        } else {
+            isOverRect = false;
+        }
+        ellipseMode(CENTER);
+        stroke(0);
+        strokeWeight(5);
+        if(isOverRect == true) {
+            fill (0, 255, 0);
+            cursor(HAND);
+        } else {
+            fill(255,0,0);
+            cursor(ARROW);
+        }
+        textSize(60);
+        textAlign(CENTER);
+        fill(color(255, 255, 255));
+        rect(300, 1000, 400, 200, 15, 15, 15, 15);
+        fill(color(255, 0, 0));
+        stroke(0);
+        text('New Game!', 500, 1125);
     }
 
-    function resetSketch() {
-        socket.emit('resetSketch', true)
+    function mousePressed() {
+        if(isOverRect == true) {
+            socket.emit('resetSketch', true);
+        }
     }
 
     function sendmouse(xpos, ypos) {
