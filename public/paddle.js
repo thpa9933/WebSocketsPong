@@ -2,7 +2,7 @@ class Paddle {
     constructor(isLeft) {
         this.y = height/2;
         this.w = 20;
-        this.h = 100;
+        this.h = 150;
         this.ychange = 0;
 
         this.previousSteps = 0;
@@ -26,7 +26,7 @@ class Paddle {
     }
 
     show() {
-        fill(255);
+        fill(color(132,28,38));
         rectMode(CENTER);
         rect(this.x, this.y, this.w, this.h, 8,8,8,8);
     }

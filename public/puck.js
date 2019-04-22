@@ -5,7 +5,7 @@ class Puck {
         this.xspeed = 0;
         this.yspeed = 0;
         this.r = 10;
-        this.speed = 5;
+        this.speed = 7;
         
         this.reset();
     }
@@ -54,7 +54,7 @@ class Puck {
         this.x = width/2;
         this.y = height/2;
         let angle = random(-PI/4, PI/4);
-        this.speed = 5;
+        this.speed = 7;
         this.xspeed = this.speed * Math.cos(angle);
         this.yspeed = this.speed * Math.sin(angle);
         
@@ -93,5 +93,16 @@ class Puck {
         this.yspeed = 0;
         this.r = 0;
         this.speed = 0;
+    }
+
+    newGame() {
+        this.x = width/2;
+        this.y = height/2;
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.r = 10;
+        this.speed = 7;
+        
+        this.reset();
     }
 }

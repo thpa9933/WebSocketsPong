@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Pong</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Cute+Font" rel="stylesheet">
+
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -14,6 +17,7 @@
 
     var score = 0;
     var isOverRect;
+
     function setup() {
         createCanvas(windowWidth, windowHeight);
         socket = io.connect('/');
@@ -33,25 +37,29 @@
     }
 
     function draw() {
-        background(0);
+        background(color(125,207,182));
         sendmouse(mouseX, mouseY);
+        textFont('Cute Font');
+
+        let dx = map(mouseX, 0, width, -0.2, 0.2);
+        let wind = createVector(dx, 0);
+        drawVector(wind, createVector(width / 2, 1250, 0), 2000);
 
         fill(255);
         textSize(70);
         textAlign(CENTER);
-        text('Slide horizontally to move!', 500, 500);
-        text('Your score is:', 500, 600);
+        text('click and hold to move', 500, 250);
+        text('score:', 500, 400);
         textSize(200);
-        text(score, 500, 900);
+        text(score, 500, 600);
 
         // Reset Button
-        if (mouseX >= 300 && mouseX <= 300+400 && mouseY >= 1000 && mouseY <= 1000+200) {
+        if (mouseX >= 300 && mouseX <= 300+400 && mouseY >= 700 && mouseY <= 700+200) {
             isOverRect = true;
         } else {
             isOverRect = false;
         }
         ellipseMode(CENTER);
-        stroke(0);
         strokeWeight(5);
         if(isOverRect == true) {
             fill (0, 255, 0);
@@ -62,11 +70,10 @@
         }
         textSize(60);
         textAlign(CENTER);
-        fill(color(255, 255, 255));
-        rect(300, 1000, 400, 200, 15, 15, 15, 15);
-        fill(color(255, 0, 0));
-        stroke(0);
-        text('New Game!', 500, 1125);
+        fill(color(125,207,182));
+        rect(300, 700, 400, 200, 15, 15, 15, 15);
+        fill(color(132,28,38));
+        text('new game', 500, 820);
     }
 
     function mousePressed() {
@@ -84,16 +91,31 @@
         socket.emit('mouse1', data);
     }
 
+    function drawVector(v, loc, scale){
+        push();
+        let arrowsize = 50;
+        translate(loc.x, loc.y);
+        stroke(255);
+        rotate(v.heading());
+
+        let len = v.mag() * scale;
+        line(0, 0, len,0);
+        line(len, 0, len-arrowsize, +arrowsize / 2);
+        line(len, 0, len-arrowsize, -arrowsize / 2);
+        pop();
+    }
+
     </script>
   </head>
 
   <body>
   </body>
   <style>
-      body{
-          overflow: hidden;
-          margin: 0px;
-          overscroll-behavior-y: contain;
-      }
+    body{
+        overflow: hidden;
+        margin: 0px;
+        overscroll-behavior-y: contain;
+        font-family: 'Cute Font', cursive;
+    }
   </style>
 </html>

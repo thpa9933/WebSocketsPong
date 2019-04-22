@@ -48,10 +48,6 @@ io.sockets.on('connection',
         socket.broadcast.emit('mouse2', data);
     });
 
-    socket.on('keyData', function(data) {
-        console.log("Key Data from client: " + data);
-    });
-
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
     });

@@ -7,6 +7,7 @@ var winner = "";
 function setup() {
     createCanvas(windowWidth, windowHeight);
     ding = loadSound("data/ding.mp3");
+    
     puck = new Puck();
     left = new Paddle(true);
     right = new Paddle(false);
@@ -14,10 +15,6 @@ function setup() {
     socket = io.connect('/');
 
     // When you recieve data from the socket
-    socket.on('mouse', function(data) {
-        console.log("Recieved mouse data from server: " + data.x + " " + data.y );
-    });
-
     socket.on('mouse1', function(data){
         left.move(data.x);
     });
@@ -27,6 +24,8 @@ function setup() {
 
     socket.on('resetSketch', function(data) {
         console.log("sketch has been reset: " + data);
+        puck.newGame();
+        winner = "";
         leftscore = 0;
         rightscore = 0;
     });
@@ -34,8 +33,9 @@ function setup() {
 }
 
 function draw() {
-    background(0);
-    
+    background(color(125,207,182));
+    textFont('Cute Font');
+
     puck.checkPaddleRight(right);
     puck.checkPaddleLeft(left);
 
@@ -48,10 +48,10 @@ function draw() {
     puck.edges();
     puck.show();
     
-    fill(255);
-    textSize(32);
-    text(leftscore, 32, 40);
-    text(rightscore, width-64, 40);
+    fill(color(49,57,60));
+    textSize(56);
+    text(leftscore, 80, 80);
+    text(rightscore, width-80, 80);
 
     // Display winner
     if(leftscore == 3) {
@@ -62,7 +62,7 @@ function draw() {
         puck.endGame();
     }
     fill(255);
-    textSize(60);
+    textSize(80);
     textAlign(CENTER);
     text(winner, (windowWidth/2), (windowHeight/2));
 
@@ -73,24 +73,4 @@ function draw() {
     };
     console.log(data);
     socket.emit('clientScore', data);
-}
-
-function keyReleased() {
-    left.move(0);
-    right.move(0);
-}
-
-function keyPressed() {
-    if (key == 'A') {
-        left.move(-10);
-    } else if (key == 'Z') {
-        left.move(10);
-    }
-
-    if (key == 'J') {
-        right.move(-10);
-    } else if (key == 'M') {
-        right.move(10);
-    }
-    socket.emit('keyData',key);
 }
