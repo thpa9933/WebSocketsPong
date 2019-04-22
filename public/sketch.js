@@ -49,7 +49,7 @@ function draw() {
     puck.show();
     
     fill(color(49,57,60));
-    textSize(56);
+    textSize(76);
     text(leftscore, 80, 80);
     text(rightscore, width-80, 80);
 
@@ -62,7 +62,7 @@ function draw() {
         puck.endGame();
     }
     fill(255);
-    textSize(80);
+    textSize(124);
     textAlign(CENTER);
     text(winner, (windowWidth/2), (windowHeight/2));
 

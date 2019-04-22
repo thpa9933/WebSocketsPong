@@ -1,8 +1,8 @@
 class Paddle {
     constructor(isLeft) {
         this.y = height/2;
-        this.w = 20;
-        this.h = 150;
+        this.w = 30;
+        this.h = 160;
         this.ychange = 0;
 
         this.previousSteps = 0;
@@ -21,6 +21,11 @@ class Paddle {
     
     move(currentSteps) {
         this.ychange = (currentSteps - this.previousSteps);
+        
+        // if (this.ychange > 100 || this.ychange < -100) {
+        //     this.ychange = 100;
+        // }
+
         this.previousSteps = currentSteps;
         console.log("ychange is: " + this.ychange);
     }
