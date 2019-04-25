@@ -66,6 +66,13 @@ function draw() {
     textAlign(CENTER);
     text(winner, (windowWidth/2), (windowHeight/2));
 
+    // show score on screen
+    totalHits = puck.getHits();
+    fill(255);
+    textSize(140);
+    textAlign(CENTER);
+    text(totalHits, (windowWidth/2), 150);
+
     // Show scores on client screen
     data = {
         LS: leftscore,

@@ -6,6 +6,7 @@ class Puck {
         this.yspeed = 0;
         this.r = 10;
         this.speed = 7;
+        this.hit = 0;
         
         this.reset();
     }
@@ -17,6 +18,7 @@ class Puck {
             this.x - this.r < p.x + p.w/2) {
                 
             if (this.x > p.x) {
+                this.hit++;
                 let diff = this.y - (p.y - p.h/2);
                 let rad = radians(45);
                 let angle = map(diff, 0, p.h, -rad, rad);
@@ -35,6 +37,7 @@ class Puck {
             this.x + this.r > p.x - p.w/2) {
                 
             if (this.x < p.x) {
+                this.hit++;
                 let diff = this.y - (p.y - p.h/2);
                 let angle = map(diff, 0, p.h, radians(225), radians(135));
                 this.speed++;
@@ -86,6 +89,10 @@ class Puck {
         ellipse(this.x, this.y, this.r*2);
     }
 
+    getHits() {
+        return this.hit;
+    }
+
     endGame() {
         this.x = 0;
         this.y = 0;
@@ -102,7 +109,8 @@ class Puck {
         this.yspeed = 0;
         this.r = 10;
         this.speed = 7;
-        
+        this.hit = 0;
+
         this.reset();
     }
 }

@@ -27,6 +27,7 @@ class Paddle {
         // }
 
         this.previousSteps = currentSteps;
+        //this.previousSteps = this.previousSteps + this.ychange;
         console.log("ychange is: " + this.ychange);
     }
 
