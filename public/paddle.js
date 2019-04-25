@@ -2,7 +2,7 @@ class Paddle {
     constructor(isLeft) {
         this.y = height/2;
         this.w = 30;
-        this.h = 160;
+        this.h = 200;
         this.ychange = 0;
 
         this.previousSteps = 0;

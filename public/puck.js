@@ -4,7 +4,7 @@ class Puck {
         this.y = height/2;
         this.xspeed = 0;
         this.yspeed = 0;
-        this.r = 10;
+        this.r = 13;
         this.speed = 7;
         this.hit = 0;
         
@@ -54,6 +54,7 @@ class Puck {
     }
     
     reset() {
+        this.hit = 0;
         this.x = width/2;
         this.y = height/2;
         let angle = random(-PI/4, PI/4);

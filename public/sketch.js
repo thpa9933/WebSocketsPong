@@ -29,8 +29,10 @@ function setup() {
         winner = "";
         leftscore = 0;
         rightscore = 0;
+        totalHits = 0;
     });
     
+    // recieve all time high score from text file
     socket.on('sendHighScore', function(data) {
         highScore = data;
     });
@@ -58,10 +60,10 @@ function draw() {
     text(rightscore, width-80, 80);
 
     // Display winner
-    if(leftscore == 3) {
+    if(leftscore == 10) {
         winner = "Player 1 Won!";
         puck.endGame();
-    } else if(rightscore == 3) {
+    } else if(rightscore == 10) {
         winner = "Player 2 Won!"
         puck.endGame();
     }
@@ -70,21 +72,24 @@ function draw() {
     textAlign(CENTER);
     text(winner, (windowWidth/2), (windowHeight/2));
 
-    // show score on screen
+    // show rally on screen
     totalHits = puck.getHits();
     fill(255);
     textSize(140);
     textAlign(CENTER);
-    text(totalHits, (windowWidth/2), 150);
+    text(totalHits, (windowWidth/2), 100);
 
     // show highScore on screen
     fill(color(132,28,38));
-    textSize(80);
+    textSize(60);
     textAlign(CENTER);
-    text(highScore, (windowWidth/2), 50);
+    text("top rally: " + highScore, 180, windowHeight - 50);
+
+    text(".socketPong.", windowWidth - 160, windowHeight - 50);
 
     // if new high score 
     if (totalHits > highScore) {
+        // call sendHighScore() outside the loop!
         sendHighScore(totalHits);
         highScore = totalHits;
     }

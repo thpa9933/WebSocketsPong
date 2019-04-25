@@ -76,14 +76,13 @@ io.sockets.on('connection',
       console.log("new high score = " + data);
       newHighScore = data;
   
-      // write new high score to text file (mini database lol)
+      // write new high score to text file (mini database)
       fs.writeFile('highScore.txt', newHighScore, (err) => { 
           if (err) throw err; 
       })
 
       highScore = newHighScore;
       socket.emit('sendHighScore', highScore);
-
     });
 
     // socket.on('gyroData', function(data) {
