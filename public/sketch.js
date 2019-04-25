@@ -3,6 +3,7 @@ var socket;
 let leftscore = 0;
 let rightscore = 0;
 var winner = "";
+var highScore = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -30,6 +31,9 @@ function setup() {
         rightscore = 0;
     });
     
+    socket.on('sendHighScore', function(data) {
+        highScore = data;
+    });
 }
 
 function draw() {
@@ -73,6 +77,18 @@ function draw() {
     textAlign(CENTER);
     text(totalHits, (windowWidth/2), 150);
 
+    // show highScore on screen
+    fill(color(132,28,38));
+    textSize(80);
+    textAlign(CENTER);
+    text(highScore, (windowWidth/2), 50);
+
+    // if new high score 
+    if (totalHits > highScore) {
+        sendHighScore(totalHits);
+        highScore = totalHits;
+    }
+
     // Show scores on client screen
     data = {
         LS: leftscore,
@@ -80,4 +96,9 @@ function draw() {
     };
     console.log(data);
     socket.emit('clientScore', data);
+}
+
+// send high score to server
+function sendHighScore(hits) {
+    socket.emit('resetHighHitScore', hits);
 }
