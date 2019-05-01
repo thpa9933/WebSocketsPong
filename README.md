@@ -1,5 +1,4 @@
-# WebSocketsPong
-Websockets pingpong!
+# socketPong!
 
 Play ping pong with your mobile device!
 
@@ -11,7 +10,8 @@ Follow the steps to play:
 4. For player 2, on your mobile device go to _your network ip_:3000/p2.html
 5. Slide your thumb horizontally, or just turn your phone. Keep your thumb down!
 
-To reset high score, reset highscore.txt to 0. 
+_your network ip_ can be found (on a mac) in system preferences > network
+To reset high score, change highscore.txt to 0. 
 
 :) 
 
